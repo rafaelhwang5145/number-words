@@ -32,3 +32,10 @@ The supported ceiling is just under one trillion. Values outside `[-MAX_VALUE, M
 throw `RangeError` rather than silently truncating or producing nonsense like "thousand
 thousand". Widening the range means adding a name to the internal `SCALES` table; it is
 not a parameter.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
